@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library</title>
+<style>
+body { font-family: Arial; background: #050607; color: #e8eaed; margin: 0; }
+.topbar { background: #15181d; padding: 12px 20px; border-bottom: 1px solid #333; }
+.topbar h1 { font-size: 18px; display: inline-block; margin: 0 20px 0 0; }
+.topbar input { padding: 8px; width: 250px; border: 1px solid #333; background: #1c2025; color: #e8eaed; }
+.tab { background: #1c2025; color: #e8eaed; border: 1px solid #333; padding: 8px 14px; cursor: pointer; }
+.tab.active { background: #4da3ff; color: #000; }
+main { padding: 20px; }
+.panel { display: none; } .panel.active { display: block; }
+h2 { border-bottom: 2px solid #4da3ff; }
+.card { background: #15181d; border: 1px solid #333; padding: 10px; margin-bottom: 8px; }
+.card button { background: #4da3ff; color: #000; border: none; padding: 6px 12px; cursor: pointer; float: right; }
+.card button:disabled { background: #555; color: #999; cursor: default; }
+.sub { color: #9ba1ab; font-size: 13px; }
+.status { float: right; font-weight: bold; font-size: 13px; }
+.inhand { color: #ffd24d; } .returned { color: #4dff88; }
+.date { color: #4da3ff; font-size: 12px; }
+#filter { margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>My Library</h1>
+  <input id="search" type="text" placeholder="Search books...">
+  <button class="tab active" data-panel="books">Available Books</button>
+  <button class="tab" data-panel="history">Borrowed / History</button>
+</div>
+
+<main>
+  <div id="books" class="panel active">
+    <h2>Available Books</h2>
+    <div id="bookList"></div>
+  </div>
+  <div id="history" class="panel">
+    <h2>Borrowed Books &amp; History</h2>
+    <div id="filter"><label><input type="checkbox" id="onlyBorrowed"> Show only borrowed (in our hand)</label></div>
+    <div id="historyList"></div>
+  </div>
+</main>
+
+<script>
+var letters = ["A", "B", "C"];
+
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+var books = [];
+for (var i = 0; i < letters.length; i++) {
+  books.push({
+    id: i,
+    name: "Book " + letters[i],
+    desc: "Description of Book " + letters[i],
+    stock: 3
+  });
+}
+
+var borrowLog = [
+  { id: 900, name: "Book A", desc: "Description of Book A", borrowed: "2026-09-01", returned: null },
+  { id: 901, name: "Book B", desc: "Description of Book B", borrowed: "2026-08-10", returned: "2026-08-28" }
+];
+
+function renderBooks() {
+  var q = document.getElementById("search").value.toLowerCase();
+  var list = document.getElementById("bookList");
+  var html = "";
+  books.forEach(function (b) {
+    if ((b.name + b.desc).toLowerCase().indexOf(q) === -1) return;
+    var borrowed = borrowLog.filter(function (h) {
+      return h.name === b.name && !h.returned;
+    }).length;
+    var avail = b.stock - borrowed;
+    html += '<div class="card">';
+    html += '<button ' + (avail <= 0 ? "disabled" : "") + ' onclick="borrow(' + b.id + ')">Borrow</button>';
+    html += '<b>' + b.name + '</b><br><span class="sub">' + b.desc + '</span><br>';
+    html += '<span class="sub">Total Stock: ' + b.stock + ' | Available: ' + avail + '</span>';
+    html += '</div>';
+  });
+  if (!html) html = '<p class="sub">No books found.</p>';
+  list.innerHTML = html;
+}
+
+function borrow(id) {
+  var b = books.find(function (x) { return x.id === id; });
+  borrowLog.push({ id: Date.now(), name: b.name, desc: b.desc, borrowed: today(), returned: null });
+  renderBooks();
+  renderHistory();
+}
+
+function returnBook(id) {
+  var h = borrowLog.find(function (x) { return x.id === id; });
+  h.returned = today();
+  renderBooks();
+  renderHistory();
+}
+
+function renderHistory() {
+  var only = document.getElementById("onlyBorrowed").checked;
+  var list = document.getElementById("historyList");
+  var html = "";
+  borrowLog.forEach(function (h) {
+    if (only && h.returned) return;
+    html += '<div class="card">';
+    html += '<span class="status ' + (h.returned ? "returned" : "inhand") + '">' + (h.returned ? "RETURNED" : "IN OUR HAND") + '</span>';
+    if (!h.returned) html += '<button onclick="returnBook(' + h.id + ')">Return</button>';
+    html += '<b>' + h.name + '</b><br>';
+    html += '<span class="sub">' + h.desc + '</span><br>';
+    html += '<span class="date">Borrowed: ' + h.borrowed + '</span>';
+    if (h.returned) html += ' | <span class="date">Returned: ' + h.returned + '</span>';
+    html += '</div>';
+  });
+  if (!html) html = '<p class="sub">Nothing here.</p>';
+  list.innerHTML = html;
+}
+
+document.querySelectorAll(".tab").forEach(function (b) {
+  b.onclick = function () {
+    document.querySelectorAll(".tab").forEach(function (x) { x.classList.remove("active"); });
+    document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+    b.classList.add("active");
+    document.getElementById(b.dataset.panel).classList.add("active");
+  };
+});
+document.getElementById("search").oninput = renderBooks;
+document.getElementById("onlyBorrowed").onchange = renderHistory;
+
+renderBooks();
+renderHistory();
+</script>
+</body>
+</html>

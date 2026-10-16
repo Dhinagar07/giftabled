@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dhinagar M - Resume</title>
+<style>
+body { font-family: Arial; background: #050607; color: #e8eaed; margin: 2; }
+aside { background: #15181d; padding: 20px; float: left; width: 240px; height: 100vh; }
+aside img { width: 150px; border: 2px solid #4da3ff; }
+aside h1 { font-size: 22px; }
+aside h3 { color: #4da3ff; font-size: 14px; }
+aside p { font-size: 14px; }
+main { margin-left: 238px; }
+nav { background: #15181d; padding: 10px; border-bottom: 1px solid #555; }
+button { background: #1c2025; color: #e8eaed; border: 1px solid #555; padding: 8px 16px; margin: 2px; cursor: pointer; }
+button.active { background: #4da3ff; color: #000; }
+.tab-panel { display: none; background: #15181d; margin: 15px; padding: 15px; border: 1px solid #333; }
+.tab-panel.active { display: block; }-
+h2 { border-bottom: 2px solid #4da3ff; }
+.card { background: #1c2025; border: 1px solid #333; padding: 12px; margin-bottom: 10px; }
+.date { color: #4da3ff; font-style: italic; float: right; }
+.sub { color: #9ba1ab; font-size: 13px; }
+ul { padding-left: 20px; }
+a { color: #4da3ff; }
+</style>
+</head>
+<body>
+
+<aside>
+  <img src="https://lh3.googleusercontent.com/d/1mrrhrs57YyX5Whdr0HXawWIOlk4N5R28"><br>
+  <h1>Dhinagar M</h1>
+  <p>Computer Science Engineer</p>
+  <h3>OBJECTIVE</h3>
+  <p>A Computer Science Engineer with a keen interest in applying foundational knowledge to real-world challenges. I seek an environment that fosters learning and allows me to contribute to the growth of the organization and myself.</p>
+</aside>
+
+<main>
+  <nav>
+    <button class="active" data-tab="education">Education</button>
+    <button data-tab="skills">Skills</button>
+    <button data-tab="projects">Projects</button>
+    <button data-tab="positions">Positions</button>
+    <button data-tab="activities">Co-curricular</button>
+    <button data-tab="contact">Contact</button>
+  </nav>
+
+  <div id="education" class="tab-panel active">
+    <h2>Education</h2>
+    <div class="card"><span class="date">Oct 2022 - Apr 2026</span><b>B.E. Computer Science and Engineering</b><br><span class="sub">College of Engineering Guindy, Chennai | CGPA: 7.8</span></div>
+    <div class="card"><span class="date">Jun 2021 - Jun 2022</span><b>HSC</b><br><span class="sub">Vidyaa Vikas International School, Gandarvakottai | 92.8%</span></div>
+  </div>
+
+  <div id="skills" class="tab-panel">
+    <h2>Skills</h2>
+    <div class="card"><b>Programming Languages:</b> Java, Python, C</div>
+    <div class="card"><b>Frameworks &amp; Technologies:</b> ReactJS, ExpressJS</div>
+    <div class="card"><b>Databases:</b> PostgreSQL</div>
+    <div class="card"><b>Soft Skills:</b> Teamwork, Time Management, Adaptability</div>
+  </div>
+
+  <div id="projects" class="tab-panel">
+    <h2>Projects</h2>
+    <div class="card"><span class="date">Jun 2026</span><b><a href="https://smartscribe.org/" target="_blank">Smart Scribe - AI Assisted Scribe Platform</a></b>
+      <ul><li>AI agent powered voice-assisted scribe platform enabling differently abled candidates to independently write examinations.</li></ul>
+      Python (FastAPI, Pydantic) | ReactJS | PostgreSQL</div>
+    <div class="card"><span class="date">Apr 2026</span><b><a href="https://drive.google.com/file/d/1x659N4y5-xVHIGiiWGWWthsrdK5g5jrA/view" target="_blank">Continuous Sign Language Recognition and Cross-Sign Conversion</a></b>
+      <ul><li>Recognizes continuous Indian Sign Language (ISL) using BiLSTM and converts ISL gestures into other sign languages.</li></ul>
+      Python | MediaPipe | Three.js | Flask</div>
+    <div class="card"><span class="date">Sep 2025</span><b><a href="https://github.com/Dhinagar07/course-recommender" target="_blank">Course Recommendation System</a></b>
+      <ul><li>Recommends courses using knowledge-based filtering and content-based similarity matching.</li></ul>
+      ReactJS | Flask | PostgreSQL</div>
+    <div class="card"><span class="date">Mar 2025</span><b><a href="https://github.com/Dhinagar07/cip" target="_blank">Voice-Based Email System</a></b>
+      <ul><li>Helps visually impaired users compose and manage emails via voice using TTS/STT with BART summarization.</li></ul>
+      ReactJS | Python (Flask, PyWebview)</div>
+    <div class="card"><span class="date">Apr 2024</span><b><a href="https://github.com/Dhinagar07/oims-front" target="_blank">Order and Inventory Management System</a></b>
+      <ul><li>E-commerce web app that manages inventories and streamlines ordering and billing.</li></ul>
+      ReactJS | ExpressJS | PostgreSQL</div>
+  </div>
+
+  <div id="positions" class="tab-panel">
+    <h2>Positions of Responsibility</h2>
+    <div class="card"><span class="date">Mar 2025 - Apr 2026</span><b>CUIC Placement Portal - Maintainer</b>
+      <ul><li>Implemented new features requested by CUIC and performed regular maintenance of the portal.</li></ul>
+      React | Express.js | PostgreSQL</div>
+    <div class="card"><span class="date">Sep 2024 - Apr 2025</span><b>CEG Tech Forum - Techops Organiser</b>
+      <ul><li>Contributed to the Kurukshetra tech fest web portal - 3000+ registrations.</li><li>Co-developed Deep Sea Mysteries, an interactive puzzle-solving event.</li><li>Logistics ERP - event stock/returns system with 100+ users.</li></ul>
+      NextJS | ReactJS | ExpressJS | PostgreSQL</div>
+  </div>
+
+  <div id="activities" class="tab-panel">
+    <h2>Co-curricular Activities</h2>
+    <div class="card"><ul><li>Actively participate in football.</li><li>Served as an NSS volunteer.</li></ul></div>
+  </div>
+
+  <div id="contact" class="tab-panel">
+    <h2>Contact</h2>
+    <div class="card"><b>Phone:</b> <a href="tel:+916381242908">+91 63812 42908</a></div>
+    <div class="card"><b>Email:</b> <a href="mailto:dhinagar775@gmail.com">dhinagar775@gmail.com</a></div>
+    <div class="card"><b>GitHub:</b> <a href="https://github.com/Dhinagar07" target="_blank">github.com/Dhinagar07</a></div>
+    <div class="card"><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/dhinagar-m-b4a79531b" target="_blank">Dhinagar M</a></div>
+  </div>
+</main>
+
+<script>
+document.querySelectorAll('button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+});
+</script>
+</body>
+</html>
