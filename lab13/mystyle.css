@@ -1,0 +1,82 @@
+body {
+  font-family: Georgia, serif;
+  background: #f4f1ea;
+  color: #2b2b2b;
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.6;
+}
+
+header {
+  border-bottom: 3px double #b08d57;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 2em;
+  margin: 0;
+  color: #5c3d1a;
+}
+
+.role {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: #8a6a3b;
+}
+
+section {
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #b08d57;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.skills ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skills li {
+  background: #5c3d1a;
+  color: #f4f1ea;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.9em;
+}
+
+.card {
+  background: #fff;
+  border-left: 4px solid #b08d57;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  margin: 0 0 5px;
+  color: #5c3d1a;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
+footer {
+  margin-top: 35px;
+  text-align: center;
+  font-size: 0.85em;
+  color: #999;
+}
