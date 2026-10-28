@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+</head>
+<body>
+    <h1>Personal Expense Tracker</h1>
+    
+    <section>
+        <h2>Add Expense</h2>
+        <input type="text" id="addDesc" placeholder="Description">
+        <input type="number" id="addAmount" placeholder="Amount">
+        <input type="text" id="addCategory" placeholder="Category">
+        <button onclick="addExpense()">Add Expense</button>
+        <p id="addMsg"></p>
+    </section>
+    
+    <section>
+        <h2>View Expenses</h2>
+        <button onclick="viewExpenses()">Refresh Expenses</button>
+        <p id="viewMsg"></p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Expense ID</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody id="expenseTable"></tbody>
+        </table>
+        <p id="totalAmount"></p>
+    </section>
+    
+    <section>
+        <h2>Update Expense</h2>
+        <input type="number" id="updateId" placeholder="Expense ID">
+        <input type="text" id="updateDesc" placeholder="New Description">
+        <input type="number" id="updateAmount" placeholder="New Amount">
+        <input type="text" id="updateCategory" placeholder="New Category">
+        <button onclick="updateExpense()">Update Expense</button>
+        <p id="updateMsg"></p>
+    </section>
+    
+    <section>
+        <h2>Delete Expense</h2>
+        <input type="number" id="deleteId" placeholder="Expense ID">
+        <button onclick="deleteExpense()">Delete Expense</button>
+        <p id="deleteMsg"></p>
+    </section>
+
+    <script>
+        const API_URL = "http://localhost:8000";
+        
+        async function addExpense() {
+            const desc = document.getElementById("addDesc").value;
+            const amount = document.getElementById("addAmount").value;
+            const category = document.getElementById("addCategory").value;
+            const msgEl = document.getElementById("addMsg");
+            
+            if (desc === "" || amount === "") {
+                msgEl.textContent = "Description and amount are required";
+                return;
+            }
+            
+            if (Number(amount) <= 0) {
+                msgEl.textContent = "Amount must be greater than zero";
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + "/expenses", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        description: desc,
+                        amount: Number(amount),
+                        category: category
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    msgEl.textContent = data.message || "Expense added successfully";
+                    document.getElementById("addDesc").value = "";
+                    document.getElementById("addAmount").value = "";
+                    document.getElementById("addCategory").value = "";
+                    viewExpenses();
+                } else {
+                    msgEl.textContent = data.detail || "Error adding expense";
+                }
+            } catch (error) {
+                msgEl.textContent = "Error connecting to API";
+            }
+        }
+        
+        async function viewExpenses() {
+            const msgEl = document.getElementById("viewMsg");
+            const tableBody = document.getElementById("expenseTable");
+            const totalEl = document.getElementById("totalAmount");
+            
+            try {
+                const response = await fetch(API_URL + "/expenses");
+                const data = await response.json();
+                
+                tableBody.innerHTML = "";
+                let total = 0;
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    data.forEach(expense => {
+                        total += Number(expense.amount);
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${expense.expense_id}</td>
+                            <td>${expense.description}</td>
+                            <td>${expense.amount}</td>
+                            <td>${expense.category}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                    msgEl.textContent = "Expenses loaded successfully";
+                    totalEl.textContent = "Total amount spent: " + total;
+                } else {
+                    msgEl.textContent = "No expenses found";
+                    totalEl.textContent = "Total amount spent: 0";
+                }
+            } catch (error) {
+                msgEl.textContent = "Error connecting to API";
+                totalEl.textContent = "";
+            }
+        }
+        
+        async function updateExpense() {
+            const id = document.getElementById("updateId").value;
+            const desc = document.getElementById("updateDesc").value;
+            const amount = document.getElementById("updateAmount").value;
+            const category = document.getElementById("updateCategory").value;
+            const msgEl = document.getElementById("updateMsg");
+            
+            if (id === "") {
+                msgEl.textContent = "Expense ID is required";
+                return;
+            }
+            
+            const updateData = {};
+            if (desc !== "") {
+                if (desc === "") {
+                    msgEl.textContent = "Description cannot be empty";
+                    return;
+                }
+                updateData.description = desc;
+            }
+            if (amount !== "") {
+                if (Number(amount) <= 0) {
+                    msgEl.textContent = "Amount must be greater than zero";
+                    return;
+                }
+                updateData.amount = Number(amount);
+            }
+            if (category !== "") {
+                updateData.category = category;
+            }
+            
+            try {
+                const response = await fetch(API_URL + "/expenses/" + id, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(updateData)
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    msgEl.textContent = data.message || "Expense updated successfully";
+                    document.getElementById("updateId").value = "";
+                    document.getElementById("updateDesc").value = "";
+                    document.getElementById("updateAmount").value = "";
+                    document.getElementById("updateCategory").value = "";
+                    viewExpenses();
+                } else {
+                    msgEl.textContent = data.detail || "Expense not found";
+                }
+            } catch (error) {
+                msgEl.textContent = "Error connecting to API";
+            }
+        }
+        
+        async function deleteExpense() {
+            const id = document.getElementById("deleteId").value;
+            const msgEl = document.getElementById("deleteMsg");
+            
+            if (id === "") {
+                msgEl.textContent = "Expense ID is required";
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + "/expenses/" + id, {
+                    method: "DELETE"
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    msgEl.textContent = data.message || "Expense deleted successfully";
+                    document.getElementById("deleteId").value = "";
+                    viewExpenses();
+                } else {
+                    msgEl.textContent = data.detail || "Expense not found";
+                }
+            } catch (error) {
+                msgEl.textContent = "Error connecting to API";
+            }
+        }
+    </script>
+</body>
+</html>
