@@ -1,0 +1,13 @@
+unit=int(input("Enter: "))
+price=0
+if unit >=200:
+    unit-=200
+    price+=200*7
+if unit >= 100:
+    unit-=100
+    price+=100*5
+if unit >= 0:
+    price+=unit*10
+    unit=0
+ 
+print(f"Total {price}")

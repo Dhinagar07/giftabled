@@ -1,0 +1,52 @@
+A1. Predict the output (12 marks)
+
+------Block 1----
+predicted:
+ravi
+priya
+
+------Block 2----
+predicted:
+starting up
+
+------Block 3----
+predicted:
+error
+
+------Block 4----
+predicted:
+file missing
+done
+
+
+-----all block actual outpot----
+
+PS D:\agenticAI\d2909> python -u "d:\agenticAI\d2909\sample.py"
+Ravi
+Priya
+starting up
+file missing
+done
+Traceback (most recent call last):
+  File "d:\agenticAI\d2909\sample.py", line 28, in <module>
+    print(a.__balance)
+          ^^^^^^^^^^^
+AttributeError: 'Account' object has no attribute '__balance'
+PS D:\agenticAI\d2909> 
+
+
+A2. Short written answers (8 marks)
+
+- __init__ reoresent the function is constructor, that ca;lled at obj creation
+
+- sekd refers currebt obj
+
+- w : existing content erased
+  a : appends with existing data
+
+- fileNotFound error  
+
+
+
+
+

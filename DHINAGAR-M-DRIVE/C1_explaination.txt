@@ -1,0 +1,6 @@
+1. I chosen B3-GCD as i need to think a little than others.
+
+2. A1 question was failed and first try, i thought r*10 to be in end of loop to resolve error, but that is wrong,then i manually traced a sample input and placred r*10 at start of loop to resolve error
+
+3. -> while : when we dont know number of times we need to loop.
+   -> for :  when we know number of times we need to loop.

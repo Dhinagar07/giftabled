@@ -1,0 +1,9 @@
+a = input("Enter a string: ")
+c = 0
+for i in range(len(a)):
+    if a[i] == a[-1-i]:
+        c += 1
+if c == len(a):
+    print("The string is palindrome.")
+else:
+    print("The string is not palindrome.")

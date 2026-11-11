@@ -1,0 +1,13 @@
+x=int(input("Enter: "))
+w=int(input("Enter: "))
+e=int(input("Enter: "))
+r=int(input("Enter: "))
+
+if x > w and x > e and x > r:
+    print(x)
+elif w > e and w > r and w > x:
+    print(w)
+elif e > r and e > x and e > w:
+    print(e)
+else:
+    print(r )

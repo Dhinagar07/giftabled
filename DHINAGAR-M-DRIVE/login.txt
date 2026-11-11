@@ -1,0 +1,10 @@
+user=input("user: ")
+pwd=input("pass: ")
+print("registered")
+user1=input("user: ")
+pwd2=input("pass: ")
+
+if user1==user and pwd2==pwd:
+    print("success")
+else:
+    print("failed")

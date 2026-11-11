@@ -1,0 +1,17 @@
+E1 : 
+
+- private variables hides data ourtsude class , so we can restrict its access.
+
+- read and write in csv are simple to store structured data whereas on  plain twxt we need to strip each line to fet the cell calues
+
+- json can store multiple datatypes and nested databut csv cant.
+
+- finally is used when there is a need to execyte some program after excution of try block or except Block
+  ex:
+     closing a socket after succesful execution in try or erroeous execution leads to except
+
+
+ I confirm that this assignment is my own work. I did not use ChatGPT, Copilot, Gemini,
+    Claude or any other AI assistant. I am willing to explain any line of it out loud.
+    Name: Dhinagar M
+    Date: 30-09-2026
